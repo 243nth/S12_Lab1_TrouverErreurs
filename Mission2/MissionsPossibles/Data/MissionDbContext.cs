@@ -13,7 +13,8 @@ namespace Mission.Data
         }
 
         public DbSet<Categorie> Categories { get; set; }
-
+        //Il faut DbSet le produit afin que les données soit accèssible pour l'application.
+        public DbSet<Produit> Produits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,7 @@ namespace Mission.Data
             
             //Générer des données de départ
              modelBuilder.GenerateData();
-        }
+       }
+
     }
 }
