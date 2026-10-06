@@ -49,8 +49,18 @@ namespace Mission.Controllers
         // GET: Produits/Create
         public IActionResult Create()
         {
-         
-            return View();
+            //utilisation du view model dans le get afin d'envoyer les infos de la liste à notre vue.
+            var jsp = new Produit_VM 
+            { 
+              CategorieList = _context.Categories
+              .Select(c => new SelectListItem
+              {
+                  Value = c.Id.ToString(),
+                  Text = c.Titre
+              } ).ToList() 
+            };
+            
+            return View(jsp);
         }
 
         // POST: Produits/Create
@@ -60,6 +70,10 @@ namespace Mission.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Produit produit)
         {
+
+        
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(produit);
