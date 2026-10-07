@@ -7,7 +7,7 @@ namespace Mission.ViewModels
     {
         public Produit Produit { get; set; }
         public IEnumerable<SelectListItem> CategorieList { get; set; }
-
-
+        
+        public int CategorieId { get; set; }
     }
 }

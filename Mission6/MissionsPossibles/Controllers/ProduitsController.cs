@@ -50,11 +50,12 @@ namespace Mission.Controllers
         public IActionResult Create()
         {
             Produit_VM produit_VM = new Produit_VM();
+            produit_VM.Produit = new Produit();   // Création du nouveau produit lors du clique
             produit_VM.CategorieList = _context.Categories.OrderBy(c => c.Titre).Select(i => new SelectListItem
             {
                 Text = i.Titre,
                 Value = i.Id.ToString()
-            });
+            }).ToList();
             return View(produit_VM);
         }
 
@@ -71,6 +72,14 @@ namespace Mission.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            // Irecharger la liste si erreur et pas juste ça mais aussi la garder en permanance pour le client . Il ne faut pas qu'elle disparaisse.
+            produit_VM.CategorieList = _context.Categories.
+                OrderBy(o => o.Titre).
+                Select(i => new SelectListItem 
+                { 
+                    Text=i.Titre,
+                    Value=i.Id.ToString()
+                }).ToList();
          
             return View(produit_VM);
         }
